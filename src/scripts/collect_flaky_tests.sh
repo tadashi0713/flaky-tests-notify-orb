@@ -13,7 +13,7 @@ if [ $flaky_tests_count = '0' ]; then
 fi
 
 # Create Slack template
-template=$(cat \<< EOS
+template=$(cat << EOS
 {
   "blocks": [
     {
