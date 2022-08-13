@@ -122,4 +122,4 @@ template=$(echo "$template" | jq ".blocks |= . + [$end_template]")
 
 # Add to environment vatiables
 echo "$template" | jq > /tmp/SlackTemplateForFlakyTests.json
-echo "export SLACK_TEMPLATE_FOR_FLAKY_TESTS=$(cat /tmp/SlackTemplateForFlakyTests.json)" >> "$BASH_ENV"
+echo 'export SLACK_TEMPLATE_FOR_FLAKY_TESTS=$(cat /tmp/SlackTemplateForFlakyTests.json)' >> "$BASH_ENV"
