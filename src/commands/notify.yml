@@ -8,12 +8,7 @@ steps:
       command: echo 'export PROJECT_SLUG=$(echo $CIRCLE_BUILD_URL | sed -e "s|https://circleci.com/||g" -e "s|/[0-9]*$||g")' >> $BASH_ENV
   - run:
       name: Install datediff command
-      command: |
-        wget https://bitbucket.org/hroptatyr/dateutils/downloads/dateutils-0.4.10.tar.xz
-        tar Jxfv dateutils-0.4.10.tar.xz
-        cd dateutils-0.4.10/
-        ./configure
-        sudo make install
+      command: <<include(scripts/install_datediff.sh)>>
   - run:
       name: Collect flaky tests & generate slack template
       command: <<include(scripts/collect_flaky_tests.sh)>>
