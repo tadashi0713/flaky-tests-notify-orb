@@ -11,8 +11,7 @@ jobs:
   # Create a job to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
-    docker:
-      - image: cimg/base:current
+    executor: flaky-tests-notify/default
     steps:
       - checkout
       # Run your orb's commands to validate them.
