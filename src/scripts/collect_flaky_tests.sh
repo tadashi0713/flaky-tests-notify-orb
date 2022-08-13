@@ -13,7 +13,7 @@ if [ $flaky_tests_count = '0' ]; then
 fi
 
 # Create Slack template
-template=$(cat \<< EOS
+template=$(cat << EOS
 {
   "blocks": [
     {
@@ -56,7 +56,7 @@ for i in $( seq 0 $(($flaky_tests_count - 1)) ); do
     last_flaked_message=$(datediff ${workflow_created_at} today -f "%S seconds ago")
   fi
   
-  flaky_test_template=$(cat \<< EOS
+  flaky_test_template=$(cat << EOS
   {
     "type": "divider"
   },
@@ -98,7 +98,7 @@ EOS
 done
 
 # Append end template
-end_template=$(cat \<< EOS
+end_template=$(cat << EOS
 {
   "type": "divider"
 },
