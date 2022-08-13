@@ -4,11 +4,5 @@ description: >
 
 executor: default
 
-parameters:
-  to:
-    type: string
-    default: "World"
-    description: "Hello to whom?"
 steps:
-  - notify:
-      to: << parameters.to >>
+  - notify
