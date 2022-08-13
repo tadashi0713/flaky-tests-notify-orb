@@ -30,7 +30,7 @@ EOS
 
 # Get each flaky tests & append to the template
 for i in $( seq 0 $(("$flaky_tests_count" - 1)) ); do
-  flaky_test=$(echo "${res}" | jq .flaky_tests[${i}])
+  flaky_test=$(echo "${res}" | jq .flaky_tests["${i}"])
   test_name=$(echo "${flaky_test}" | jq -r .test_name)
   classname=$(echo "${flaky_test}" | jq -r .classname)
   source=$(echo "${flaky_test}" | jq -r .source)
