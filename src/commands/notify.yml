@@ -1,15 +1,21 @@
 description: >
   This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
-parameters:
-  to:
-    type: string
-    default: "World"
-    description: "Hello to whom?"
+
 steps:
+  - checkout
   - run:
-      environment:
-        PARAM_TO: <<parameters.to>>
-      name: Hello Greeting
-      command: <<include(scripts/notify.sh)>>
+      name: Get project slug
+      command: echo 'export PROJECT_SLUG=$(echo $CIRCLE_BUILD_URL | sed -e "s|https://circleci.com/||g" -e "s|/[0-9]*$||g")' >> $BASH_ENV
+  - run:
+      name: Install datediff command
+      command: |
+        wget https://bitbucket.org/hroptatyr/dateutils/downloads/dateutils-0.4.10.tar.xz
+        tar Jxfv dateutils-0.4.10.tar.xz 
+        cd dateutils-0.4.10/
+        ./configure
+        sudo make install
+  - run:
+      name: Collect flaky tests & generate slack template
+      command: <<include(scripts/collect_flaky_tests.sh)>>
+  - slack/notify:
+      template: SLACK_TEMPLATE_FOR_FLAKY_TESTS
