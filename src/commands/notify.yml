@@ -20,7 +20,7 @@ steps:
   - run:
       name: Collect flaky tests & generate slack template
       command: <<include(scripts/collect_flaky_tests.sh)>>
-      environments:
+      environment:
         PROJECT_SLUG: <<parameters.project_slug>>
   - slack/notify:
       template: SLACK_TEMPLATE_FOR_FLAKY_TESTS
