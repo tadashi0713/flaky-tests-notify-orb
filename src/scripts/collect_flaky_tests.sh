@@ -1,5 +1,12 @@
 #!/bin/bash -eu
 
+# If $PROJECT_SLUG is not specified, extract from current project's $CIRCLE_BUILD_URL
+ecif [ "$PROJECT_SLUG" = '' ]; then
+  PROJECT_SLUG=$(echo "$CIRCLE_BUILD_URL" | sed -e "s|https://circleci.com/||g" -e "s|/[0-9]*$||g"
+fi
+
+echo $PROJECT_SLUG
+
 # Fetch flaky tests API(https://circleci.com/docs/api/v2/index.html#operation/getFlakyTests)
 res=$(curl --request GET \
 --url "https://circleci.com/api/v2/insights/${PROJECT_SLUG}/flaky-tests" \

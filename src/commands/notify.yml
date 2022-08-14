@@ -7,13 +7,11 @@ parameters:
       Example: gh/CircleCI-Public/api-preview-docs
       Project slug in the form vcs-slug/org-name/repo-name.
       If not specified, current project's slug will be used.
+    default: ''
     type: string
 
 steps:
   - checkout
-  - run:
-      name: Get project slug
-      command: <<include(scripts/get_project_slug.sh)>>
   - run:
       name: Install datediff command
       command: <<include(scripts/install_datediff.sh)>>
