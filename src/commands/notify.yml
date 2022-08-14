@@ -15,10 +15,10 @@ steps:
   - run:
       name: Install datediff command
       command: <<include(scripts/install_datediff.sh)>>
-      environments:
-        PROJECT_SLUG: <<parameters.project_slug>>
   - run:
       name: Collect flaky tests & generate slack template
       command: <<include(scripts/collect_flaky_tests.sh)>>
+      environments:
+        PROJECT_SLUG: <<parameters.project_slug>>
   - slack/notify:
       template: SLACK_TEMPLATE_FOR_FLAKY_TESTS
