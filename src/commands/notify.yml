@@ -1,6 +1,14 @@
 description: >
   This command echos "Hello World" using file inclusion.
 
+parameters:
+  project_slug:
+    description: >
+      Example: gh/CircleCI-Public/api-preview-docs
+      Project slug in the form vcs-slug/org-name/repo-name.
+      If not specified, current project's slug will be used.
+    type: string
+
 steps:
   - checkout
   - run:
@@ -9,6 +17,8 @@ steps:
   - run:
       name: Install datediff command
       command: <<include(scripts/install_datediff.sh)>>
+      environments:
+        PROJECT_SLUG: <<parameters.project_slug>>
   - run:
       name: Collect flaky tests & generate slack template
       command: <<include(scripts/collect_flaky_tests.sh)>>
