@@ -12,6 +12,7 @@ parameters:
 
 steps:
   - checkout
+   - run: echo <<parameters.project_slug>>
   - run:
       name: Install datediff command
       command: <<include(scripts/install_datediff.sh)>>
