@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - flaky-tests-notify/notify:
-          project_slug: gh/tadashi0713/circleci-demo-test-insights
+          project_slug: 'gh/tadashi0713/circleci-demo-test-insights'
   not-notify-flaky-tests:
     executor: flaky-tests-notify/default
     steps:
