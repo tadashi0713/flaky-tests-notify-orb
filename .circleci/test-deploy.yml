@@ -36,7 +36,8 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            - notify-flaky-tests
+            - not-notify-flaky-tests
           context: orb-publishing
           filters:
             branches:
