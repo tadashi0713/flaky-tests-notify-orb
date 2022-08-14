@@ -9,6 +9,13 @@ parameters:
       If not specified, current project's slug will be used.
     default: ''
     type: string
+  circle_token:
+    description: >
+      CircleCI token for fetching flaky tests via API
+      Please refer to this document how to generate it.
+      https://circleci.com/docs/managing-api-tokens
+    default: CIRCLE_TOKEN
+    type: string
 
 steps:
   - run:
@@ -22,5 +29,6 @@ steps:
       command: <<include(scripts/collect_flaky_tests.sh)>>
       environment:
         PROJECT_SLUG: <<parameters.project_slug>>
+        CIRCLE_TOKEN: <<parameters.circle_token>>
   - slack/notify:
       template: SLACK_TEMPLATE_FOR_FLAKY_TESTS

@@ -1,13 +1,11 @@
 #!/bin/bash -eu
 
-echo "Project slug pre: ${PROJECT_SLUG}"
-
 # If $PROJECT_SLUG is not specified, extract from current project's $CIRCLE_BUILD_URL
 if [ "${PROJECT_SLUG}" = '' ]; then
   PROJECT_SLUG=$(echo "$CIRCLE_BUILD_URL" | sed -e "s|https://circleci.com/||g" -e "s|/[0-9]*$||g")
 fi
 
-echo "Project slug post: ${PROJECT_SLUG}"
+echo "Project slug: ${PROJECT_SLUG}"
 
 # Fetch flaky tests API(https://circleci.com/docs/api/v2/index.html#operation/getFlakyTests)
 res=$(curl --request GET \
@@ -29,7 +27,7 @@ template=$(cat << EOS
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": ":warning: Flaky tests detected to *${CIRCLE_PROJECT_REPONAME}* project."
+        "text": ":warning: Flaky tests detected to *${PROJECT_SLUG}* project."
       }
     }
   ]
