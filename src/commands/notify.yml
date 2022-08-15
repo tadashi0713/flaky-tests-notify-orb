@@ -1,21 +1,28 @@
 description: >
-  This command echos "Hello World" using file inclusion.
+  Collect flaky tests via API, and notify to Slack channel
 
 parameters:
   project_slug:
     description: >
-      Example: gh/CircleCI-Public/api-preview-docs
+      Example: gh/CircleCI-Public/api-preview-docs.
       Project slug in the form vcs-slug/org-name/repo-name.
       If not specified, current project's slug will be used.
     default: ''
     type: string
   circle_token:
     description: >
-      CircleCI token for fetching flaky tests via API
+      CircleCI token for fetching flaky tests via API.
       Please refer to this document how to generate it.
       https://circleci.com/docs/managing-api-tokens
     default: CIRCLE_TOKEN
+    type: env_var_name
+  channel:
+    description: >
+      Select which channel in which to post to.
+      Channel name or ID will work. You may include a comma separated list of channels if you wish to post to multiple channels at once. Set the "SLACK_DEFAULT_CHANNEL" environment variable for the default channel.
+    default: SLACK_DEFAULT_CHANNEL
     type: string
+
 
 steps:
   - run:

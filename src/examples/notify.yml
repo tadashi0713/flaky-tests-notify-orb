@@ -1,16 +1,13 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  This example uses Scheduled Pipelines in order to run this job periodically and find flaky tests faster. 
+  
+  About Scheduled Pipelines: https://circleci.com/docs/scheduled-pipelines
 usage:
   version: 2.1
 
   orbs:
     flaky-tests-notify: tadashi/flaky-tests-notify@1.0.0
 
-  # This parameter is for passing from Scheduled pipelines
-  # https://circleci.com/docs/scheduled-pipelines
   parameters:
     notify_flaky_tests:
       type: boolean
