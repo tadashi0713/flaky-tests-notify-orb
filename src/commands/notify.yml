@@ -1,6 +1,6 @@
 description: >
   Collect flaky tests via API, and notify to Slack channel.
-  
+
   The environment variables CIRCLE_TOKEN, SLACK_ACCESS_TOKEN, and SLACK_DEFAULT_CHANNEL must be set for this orb to work.
 
   Please refer to this document how to generate SLACK_ACCESS_TOKEN: https://github.com/CircleCI-Public/slack-orb/wiki/Setup.
@@ -29,7 +29,7 @@ parameters:
       Set the "SLACK_DEFAULT_CHANNEL" environment variable for the default channel.
     default: SLACK_DEFAULT_CHANNEL
     type: env_var_name
-  
+
 steps:
   - run:
       name: Install datediff command
