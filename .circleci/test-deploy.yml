@@ -14,6 +14,7 @@ jobs:
       - checkout
       - flaky-tests-notify/notify:
           project_slug: gh/tadashi0713/circleci-demo-test-insights
+          channel: random
   not-notify-flaky-tests:
     executor: flaky-tests-notify/default
     steps:
