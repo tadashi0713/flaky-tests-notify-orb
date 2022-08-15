@@ -1,6 +1,6 @@
 description: >
-  This example uses Scheduled Pipelines in order to run this job periodically and find flaky tests faster. 
-  
+  This example uses Scheduled Pipelines in order to run this job periodically and find flaky tests faster.
+
   About Scheduled Pipelines: https://circleci.com/docs/scheduled-pipelines
 usage:
   version: 2.1
