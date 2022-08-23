@@ -1,0 +1,20 @@
+description: >
+  This example uses Scheduled Pipelines in order to run this job periodically and find flaky tests faster.
+
+  About Scheduled Pipelines: https://circleci.com/docs/scheduled-pipelines
+usage:
+  version: 2.1
+
+  orbs:
+    flaky-tests-notify: tadashi/flaky-tests-notify@1.0.0
+
+  parameters:
+    notify_flaky_tests:
+      type: boolean
+      default: false
+
+  workflows:
+    notify_flaky_tests:
+      when: << pipeline.parameters.notify_flaky_tests >>
+      jobs:
+        - flaky-tests-notify/notify

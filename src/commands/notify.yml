@@ -1,0 +1,45 @@
+description: >
+  Collect flaky tests via API, and notify to Slack channel.
+
+  The environment variables CIRCLE_TOKEN, SLACK_ACCESS_TOKEN, and SLACK_DEFAULT_CHANNEL must be set for this orb to work.
+
+  Please refer to this document how to generate SLACK_ACCESS_TOKEN: https://github.com/CircleCI-Public/slack-orb/wiki/Setup.
+
+  Please refer to this document how to generate CIRCLE_TOKEN: https://circleci.com/docs/managing-api-tokens.
+parameters:
+  project_slug:
+    description: >
+      Example: gh/CircleCI-Public/api-preview-docs.
+      Project slug in the form vcs-slug/org-name/repo-name.
+      If not specified, current project's slug will be used.
+    default: ''
+    type: string
+  circle_token:
+    description: >
+      CircleCI token for fetching flaky tests via API.
+      Please refer to this document how to generate it.
+      https://circleci.com/docs/managing-api-tokens
+    default: CIRCLE_TOKEN
+    type: env_var_name
+  channel:
+    description: >
+      Select which channel in which to post to.
+      Channel name or ID will work.
+      You may include a comma separated list of channels if you wish to post to multiple channels at once.
+      Set the "SLACK_DEFAULT_CHANNEL" environment variable for the default channel.
+    default: SLACK_DEFAULT_CHANNEL
+    type: env_var_name
+
+steps:
+  - run:
+      name: Install datediff command
+      command: <<include(scripts/install_datediff.sh)>>
+  - run:
+      name: Collect flaky tests & generate slack template
+      command: <<include(scripts/collect_flaky_tests.sh)>>
+      environment:
+        PROJECT_SLUG: <<parameters.project_slug>>
+        CIRCLE_TOKEN: <<parameters.circle_token>>
+  - slack/notify:
+      template: SLACK_TEMPLATE_FOR_FLAKY_TESTS
+      channel: <<parameters.channel>>
