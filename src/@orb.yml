@@ -4,7 +4,7 @@ description: >
   You can notify(slack) flaky tests of your project, so that you can find and fix them quickly.
 
 display:
-  home_url: "https://tadashi0713.dev"
+  home_url: "https://tadashi0713.dev/blog/flaky-tests-notify-orb-en"
   source_url: "https://github.com/tadashi0713/flaky-tests-notify-orb"
 
 orbs:
