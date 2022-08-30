@@ -6,7 +6,7 @@ usage:
   version: 2.1
 
   orbs:
-    flaky-tests-notify: tadashi/flaky-tests-notify@1.0.0
+    flaky-tests-notify: tadashi/flaky-tests-notify@1.0.2
 
   parameters:
     notify_flaky_tests:
