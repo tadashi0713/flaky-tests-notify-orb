@@ -7,10 +7,21 @@ fi
 
 echo "Project slug: ${PROJECT_SLUG}"
 
+# CIRCLE_TOKEN_PARAM either contains the token itself or the name of the environment variable that contains the token
+TOKEN=$(eval echo \""$CIRCLE_TOKEN_PARAM"\")
+
 # Fetch flaky tests API(https://circleci.com/docs/api/v2/index.html#operation/getFlakyTests)
 res=$(curl --request GET \
 --url "https://circleci.com/api/v2/insights/${PROJECT_SLUG}/flaky-tests" \
---header "circle-token: $CIRCLE_TOKEN")
+--header "circle-token: $TOKEN")
+
+# if response is not parseable by jq, then log it and exit
+{
+  echo "$res" | jq
+} || {
+  echo "Unexpected response: $res"
+  exit 1
+}
 
 # Skip if flaky tests don't exist
 flaky_tests_count=$(echo "$res" | jq '.total_flaky_tests')
@@ -47,7 +58,7 @@ for i in $( seq 0 $(("$flaky_tests_count" - 1)) ); do
   workflow_id=$(echo "${flaky_test}" | jq -r .workflow_id)
   workflow_created_at=$(echo "${flaky_test}" | jq -r .workflow_created_at)
   pipeline_number=$(echo "${flaky_test}" | jq -r .pipeline_number)
-  
+
   # Create last flaked message using datediff
   if [ "$(datediff "${workflow_created_at}" today -f "%Y")" != '0' ]; then
     last_flaked_message=$(datediff "${workflow_created_at}" today -f "%Y years ago")
@@ -62,7 +73,7 @@ for i in $( seq 0 $(("$flaky_tests_count" - 1)) ); do
   else
     last_flaked_message=$(datediff "${workflow_created_at}" today -f "%S seconds ago")
   fi
-  
+
   flaky_test_template=$(cat << EOS
   {
     "type": "divider"
